@@ -3,13 +3,30 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import AuthImage from "@/images/authImg.png";
 import Logo from "@/images/Logo.png";
-import { PasswordInput, PrimaryButton, Tab, TextInput } from "@/components";
+import {
+  PasswordInput,
+  PrimaryButton,
+  Radio,
+  Tab,
+  TextInput
+} from "@/components";
 import AppleButton from "@/images/buttons/appleButton.png";
 import GoogleButton from "@/images/buttons/googleButton.png";
+import SignUpGoogle from "@/images/buttons/upGoogle.png";
+import SignUpApple from "@/images/buttons/upApple.png";
 
 export default function SignIn() {
   const TabOptions = ["Sign in", "New Account"];
   const [activeTab, setTab] = useState(TabOptions[0]);
+
+  const [radioSelection, setRadioSelection] = useState("");
+
+  const radioData = [
+    "Individual",
+    "Agent",
+    "Property Owner",
+    "Real Estate Developer"
+  ];
 
   const SignInComp = () => {
     return (
@@ -51,6 +68,23 @@ export default function SignIn() {
           inputlabel="Confirm Password"
           placeholder="Confirm your password"
         />
+        <AccountTypeDiv>
+          <ATtext>Account Type</ATtext>
+          <AccountTypes>
+            {radioData.map((item, i) => {
+              return (
+                <Radio
+                  key={i}
+                  categoryName={item}
+                  select={() => {
+                    setRadioSelection(item);
+                  }}
+                  radioOn={item === radioSelection}
+                />
+              );
+            })}
+          </AccountTypes>
+        </AccountTypeDiv>
         <ButtonContainer>
           <PrimaryButton text="Create Account" />
         </ButtonContainer>
@@ -65,10 +99,10 @@ export default function SignIn() {
         </OrDiv>
         <Buttons>
           <ExternalButton>
-            <Image src={GoogleButton} alt="googleLogin" quality={100} />
+            <Image src={SignUpGoogle} alt="googleSignUp" quality={100} />
           </ExternalButton>
           <ExternalButton>
-            <Image src={AppleButton} alt="appleLogin" quality={100} />
+            <Image src={SignUpApple} alt="appleSignUp" quality={100} />
           </ExternalButton>
         </Buttons>
       </ComponentContainer>
@@ -136,7 +170,7 @@ const Header = styled.h3`
   font-size: 3rem;
   font-weight: 600;
   text-align: center;
-  margin-bottom: 5rem;
+  margin-bottom: 4rem;
   @media screen and (min-width: 1300px) and (max-width: 1600px) {
     margin-bottom: 2rem;
     font-size: 2.6rem;
@@ -145,12 +179,13 @@ const Header = styled.h3`
 const TabContainer = styled.div``;
 
 const ComponentContainer = styled.div`
-  width: 65%;
+  width: 80%;
   margin-left: auto;
   margin-right: auto;
   padding-top: 3rem;
   @media screen and (min-width: 1300px) and (max-width: 1600px) {
     padding-top: 1.5rem;
+    width: 80%;
   }
 `;
 
@@ -202,7 +237,7 @@ const OrDiv = styled.div`
 const Buttons = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: column;
+  justify-content: space-evenly;
   margin-top: 3rem;
   @media screen and (min-width: 1300px) and (max-width: 1600px) {
     margin-top: 2rem;
@@ -210,14 +245,9 @@ const Buttons = styled.div`
 `;
 
 const ExternalButton = styled.div`
-  margin-bottom: 2rem;
   cursor: pointer;
   position: relative;
   transition: all ease 0.1s;
-
-  @media screen and (min-width: 1300px) and (max-width: 1600px) {
-    margin-bottom: 1rem;
-  }
 
   :hover {
     transform: scale(1.02);
@@ -236,4 +266,23 @@ const TandC = styled.h3`
     font-size: 1.4rem;
     margin-top: 1.6rem;
   }
+`;
+
+const AccountTypeDiv = styled.div`
+  margin-top: 1rem;
+`;
+
+const ATtext = styled.h3`
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  @media screen and (min-width: 1300px) and (max-width: 1600px) {
+    font-size: 1.4rem;
+  }
+`;
+
+const AccountTypes = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;

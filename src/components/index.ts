@@ -4,3 +4,4 @@ export * from "./inputs";
 export * from "./footer";
 export * from "./tab";
 export * from "./cards";
+export * from "./radio";
