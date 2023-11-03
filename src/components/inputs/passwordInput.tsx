@@ -3,6 +3,9 @@ import styled from "@emotion/styled";
 import EyeOpen from "../../images/eyeOpen.png";
 import EyeClose from "../../images/eyeClose.png";
 import {
+  EMessage,
+  ErrorContainer,
+  LabelDiv,
   StyledInput,
   StyledInputContainer,
   StyledInputElementContainer,
@@ -12,23 +15,43 @@ import Image from "next/image";
 
 interface IProps extends React.ButtonHTMLAttributes<HTMLInputElement> {
   inputlabel: string;
+  errorMsg?: string;
+  error?: any;
+  onBlurProp?: Function;
 }
-export const PasswordInput: FC<IProps> = ({ inputlabel, ...rest }) => {
+export const PasswordInput: FC<IProps> = ({
+  inputlabel,
+  error = false,
+  errorMsg,
+  onBlurProp,
+  ...rest
+}) => {
   const [focused, setFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const handleBlur = (e) => {
+    setFocused(false);
+    if (onBlurProp) {
+      onBlurProp(e);
+    }
+  };
   return (
     <StyledInputContainer>
-      <StyledInputLabel>{inputlabel}</StyledInputLabel>
-      <StyledInputElementContainer focused={focused}>
+      <LabelDiv>
+        <StyledInputLabel>{inputlabel}</StyledInputLabel>
+        {error && (
+          <ErrorContainer>
+            <EMessage>{errorMsg}</EMessage>
+          </ErrorContainer>
+        )}
+      </LabelDiv>
+      <StyledInputElementContainer focused={focused} error={error}>
         <ExtendInput
           type={showPassword ? "text" : "password"}
           {...rest}
           onFocus={() => {
             setFocused(true);
           }}
-          onBlur={() => {
-            setFocused(false);
-          }}
+          onBlur={handleBlur}
         />
         <EyeDiv onClick={() => setShowPassword(!showPassword)}>
           {showPassword ? (

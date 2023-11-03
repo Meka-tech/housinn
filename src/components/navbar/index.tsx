@@ -89,7 +89,7 @@ const AuthContainer = styled.div`
   align-items: center;
 `;
 const SignInButton = styled.div`
-  width: fit-content;
+  width: 6rem;
 `;
 const HeartContainer = styled.div`
   display: flex;

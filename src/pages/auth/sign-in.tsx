@@ -14,12 +14,12 @@ import AppleButton from "@/images/buttons/appleButton.png";
 import GoogleButton from "@/images/buttons/googleButton.png";
 import SignUpGoogle from "@/images/buttons/upGoogle.png";
 import SignUpApple from "@/images/buttons/upApple.png";
+import { useFormik, ErrorMessage } from "formik";
+import { SignInValidation, SignUpValidation } from "./authValidationSchema";
 
 export default function SignIn() {
   const TabOptions = ["Sign in", "New Account"];
   const [activeTab, setTab] = useState(TabOptions[0]);
-
-  const [radioSelection, setRadioSelection] = useState("");
 
   const radioData = [
     "Individual",
@@ -29,16 +29,49 @@ export default function SignIn() {
   ];
 
   const SignInComp = () => {
+    const formik = useFormik({
+      initialValues: {
+        password: "",
+        email: ""
+      },
+      validationSchema: SignInValidation,
+      onSubmit: (values) => {
+        alert(JSON.stringify(values, null, 2));
+      }
+    });
+
     return (
       <ComponentContainer>
-        <TextInput inputlabel="Email" placeholder="Enter your email" />
-        <PasswordInput
-          inputlabel="Password"
-          placeholder="Enter your password"
-        />
-        <ButtonContainer>
-          <PrimaryButton text="Sign in" />
-        </ButtonContainer>
+        <form onSubmit={formik.handleSubmit}>
+          <TextInput
+            id="email"
+            type="email"
+            inputlabel="Email"
+            placeholder="Enter your email"
+            onChange={formik.handleChange}
+            onBlurProp={formik.handleBlur}
+            value={formik.values.email}
+            error={formik.touched.email && formik.errors.email}
+            errorMsg={formik.errors.email}
+          />
+          <PasswordInput
+            id="password"
+            inputlabel="Password"
+            placeholder="Enter your password"
+            onChange={formik.handleChange}
+            onBlurProp={formik.handleBlur}
+            value={formik.values.password}
+            error={formik.touched.password && formik.errors.password}
+            errorMsg={formik.errors.password}
+          />
+          <ButtonContainer>
+            <PrimaryButton
+              text="Sign in"
+              type="submit"
+              disabled={Object.keys(formik.errors).length !== 0}
+            />
+          </ButtonContainer>
+        </form>
         <ForgotPasswordDiv>
           <h2>Forgot Password</h2>
         </ForgotPasswordDiv>
@@ -57,37 +90,78 @@ export default function SignIn() {
     );
   };
   const NewComp = () => {
+    const [radioSelection, setRadioSelection] = useState("");
+    const formik = useFormik({
+      initialValues: {
+        password: "",
+        email: "",
+        confirmPassword: ""
+      },
+      validationSchema: SignUpValidation,
+      onSubmit: (values) => {
+        alert(JSON.stringify(values, null, 2));
+      }
+    });
     return (
       <ComponentContainer>
-        <TextInput inputlabel="Email" placeholder="Enter your email" />
-        <PasswordInput
-          inputlabel="Password"
-          placeholder="Enter your password"
-        />
-        <PasswordInput
-          inputlabel="Confirm Password"
-          placeholder="Confirm your password"
-        />
-        <AccountTypeDiv>
-          <ATtext>Account Type</ATtext>
-          <AccountTypes>
-            {radioData.map((item, i) => {
-              return (
-                <Radio
-                  key={i}
-                  categoryName={item}
-                  select={() => {
-                    setRadioSelection(item);
-                  }}
-                  radioOn={item === radioSelection}
-                />
-              );
-            })}
-          </AccountTypes>
-        </AccountTypeDiv>
-        <ButtonContainer>
-          <PrimaryButton text="Create Account" />
-        </ButtonContainer>
+        <form onSubmit={formik.handleSubmit}>
+          <TextInput
+            id="email"
+            inputlabel="Email"
+            placeholder="Enter your email"
+            onChange={formik.handleChange}
+            onBlurProp={formik.handleBlur}
+            value={formik.values.email}
+            error={formik.touched.email && formik.errors.email}
+            errorMsg={formik.errors.email}
+          />
+          <PasswordInput
+            id="password"
+            inputlabel="Password"
+            placeholder="Enter your password"
+            onChange={formik.handleChange}
+            onBlurProp={formik.handleBlur}
+            value={formik.values.password}
+            error={formik.touched.password && formik.errors.password}
+            errorMsg={formik.errors.password}
+          />
+          <PasswordInput
+            id="confirmPassword"
+            inputlabel="Confirm Password"
+            placeholder="Confirm your password"
+            onChange={formik.handleChange}
+            onBlurProp={formik.handleBlur}
+            value={formik.values.confirmPassword}
+            error={
+              formik.touched.confirmPassword && formik.errors.confirmPassword
+            }
+            errorMsg={formik.errors.confirmPassword}
+          />
+          <AccountTypeDiv>
+            <ATtext>Account Type</ATtext>
+            <AccountTypes>
+              {radioData.map((item, i) => {
+                return (
+                  <Radio
+                    key={i}
+                    categoryName={item}
+                    select={() => {
+                      setRadioSelection(item);
+                    }}
+                    radioOn={item === radioSelection}
+                  />
+                );
+              })}
+            </AccountTypes>
+          </AccountTypeDiv>
+          <ButtonContainer>
+            <PrimaryButton
+              text="Create Account"
+              type="submit"
+              disabled={Object.keys(formik.errors).length !== 0}
+            />
+          </ButtonContainer>
+        </form>
         <TandC>
           By submitting, I accept Housinn’s{" "}
           <span style={{ color: "#002A50", fontWeight: "600" }}>

@@ -101,7 +101,7 @@ export const NewListingsCards = styled.div`
   }
 `;
 export const NewListingsButton = styled.div`
-  width: fit-content;
+  width: 12rem;
   margin-left: auto;
   margin-right: auto;
   margin-top: 5rem;
@@ -215,7 +215,7 @@ export const SquiglyLineTwin = styled.div`
 export const ReviewButton = styled.div`
   margin-left: auto;
   margin-right: auto;
-  width: fit-content;
+  width: 12rem;
   margin-top: 8.2rem;
 `;
 export const GetOurApp = styled.div`
