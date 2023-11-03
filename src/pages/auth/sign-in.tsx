@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import Image from "next/image";
 import AuthImage from "@/images/authImg.png";
@@ -40,6 +40,15 @@ export default function SignIn() {
       }
     });
 
+    const [buttonDisabled, setButtonDisabled] = useState(true);
+
+    useEffect(() => {
+      if (Object.keys(formik.errors).length === 0) {
+        setButtonDisabled(false);
+      } else {
+        setButtonDisabled(true);
+      }
+    }, [formik.errors]);
     return (
       <ComponentContainer>
         <form onSubmit={formik.handleSubmit}>
@@ -102,6 +111,14 @@ export default function SignIn() {
         alert(JSON.stringify(values, null, 2));
       }
     });
+    const [buttonDisabled, setButtonDisabled] = useState(true);
+
+    useEffect(() => {
+      if (Object.keys(formik.errors).length === 0 && radioSelection !== "") {
+        setButtonDisabled(false);
+      }
+    }, [formik.errors, radioSelection]);
+    console.log(Object.keys(formik.errors).length);
     return (
       <ComponentContainer>
         <form onSubmit={formik.handleSubmit}>
@@ -158,7 +175,7 @@ export default function SignIn() {
             <PrimaryButton
               text="Create Account"
               type="submit"
-              disabled={Object.keys(formik.errors).length !== 0}
+              disabled={buttonDisabled}
             />
           </ButtonContainer>
         </form>

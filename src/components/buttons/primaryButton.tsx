@@ -35,7 +35,7 @@ const Container = styled.button<IButtonProps>`
   width: 100%;
   cursor: pointer;
   background-color: ${(props) =>
-    props.variant ? "transparent" : "rgba(0, 42, 80, 1)"};
+    props.variant ? "rgba(0, 42, 80, 0.10)" : "rgba(0, 42, 80, 1)"};
   border-radius: 5px;
   padding: 1.1rem 1rem;
   color: ${(props) => (props.variant ? "rgba(0, 42, 80, 1)" : "white")};
@@ -55,7 +55,7 @@ const Container = styled.button<IButtonProps>`
 
 const Text = styled.h3`
   font-size: 1.6rem;
-  font-weight: 600;
+  font-weight: 400;
   @media screen and (min-width: 1300px) and (max-width: 1600px) {
     font-size: 1.4rem;
   }

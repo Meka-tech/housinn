@@ -38,8 +38,8 @@ const RadioDiv = styled.div`
 `;
 const RadioOn = styled.div`
   background-color: rgba(0, 42, 80, 1);
-  width: 1rem;
-  height: 1rem;
+  width: 0.8rem;
+  height: 0.8rem;
   border-radius: 50%;
   @media screen and (min-width: 1300px) and (max-width: 1600px) {
     width: 0.6rem;
@@ -50,7 +50,7 @@ const Name = styled.h3`
   color: black;
   font-weight: 400;
   font-size: 1.6rem;
-  margin-left: 0.8rem;
+  margin-left: 0.5rem;
   @media screen and (min-width: 1300px) and (max-width: 1600px) {
     font-size: 1.4rem;
   }
