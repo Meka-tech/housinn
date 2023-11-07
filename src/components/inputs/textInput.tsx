@@ -92,6 +92,7 @@ export const StyledInputElementContainer = styled.div<InputContainerStyle>`
   border-radius: 4px;
   padding: 1rem;
   transition: all ease 0.5s;
+  background-color: ${(props) => (props.error ? "rgba(255 ,0,0,0.05)" : "")};
 
   @media screen and (min-width: 1300px) and (max-width: 1600px) {
     height: 3.8rem;
