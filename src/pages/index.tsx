@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-import HeroImage from "@/images/hero_img.png";
+import HeroImage from "@/images/hero2_img.png";
 import UnderLine from "@/images/fllatLine.png";
 import {
   Footer,

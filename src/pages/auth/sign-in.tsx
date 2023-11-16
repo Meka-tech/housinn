@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import AuthImage from "@/images/authImg.png";
 import Logo from "@/images/Logo.png";
+import XIcon from "@/images/Icons/x-icon.png";
 import {
   PasswordInput,
   PrimaryButton,
@@ -16,10 +17,12 @@ import SignUpGoogle from "@/images/buttons/upGoogle.png";
 import SignUpApple from "@/images/buttons/upApple.png";
 import { useFormik, ErrorMessage } from "formik";
 import { SignInValidation, SignUpValidation } from "./authValidationSchema";
+import { useRouter } from "next/router";
 
 export default function SignIn() {
   const TabOptions = ["Sign in", "New Account"];
   const [activeTab, setTab] = useState(TabOptions[0]);
+  const router = useRouter();
 
   const radioData = [
     "Individual",
@@ -216,6 +219,15 @@ export default function SignIn() {
       </SideImage>
       <Main>
         <Header>Welcome To Housinn</Header>
+        <Xdiv onClick={() => router.back()}>
+          <Image
+            src={XIcon}
+            alt="goBack"
+            quality={100}
+            width={30}
+            height={30}
+          />
+        </Xdiv>
         <TabContainer>
           <Tab options={TabOptions} activeTab={activeTab} setTab={setTab} />
         </TabContainer>
@@ -253,6 +265,7 @@ const Main = styled.div`
   padding: 5rem 15rem;
   color: black;
   position: relative;
+  overflow-y: auto;
   @media screen and (min-width: 1300px) and (max-width: 1600px) {
     padding: 3rem 10rem;
   }
@@ -265,6 +278,16 @@ const Header = styled.h3`
   @media screen and (min-width: 1300px) and (max-width: 1600px) {
     margin-bottom: 2rem;
     font-size: 2.6rem;
+  }
+`;
+const Xdiv = styled.div`
+  position: absolute;
+  cursor: pointer;
+  right: 5rem;
+  top: 3rem;
+  @media screen and (min-width: 1300px) and (max-width: 1600px) {
+    right: 3rem;
+    top: 2rem;
   }
 `;
 const TabContainer = styled.div``;

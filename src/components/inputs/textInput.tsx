@@ -17,7 +17,7 @@ export const TextInput: FC<IProps> = ({
   ...rest
 }) => {
   const [focused, setFocused] = useState(false);
-  const handleBlur = (e) => {
+  const handleBlur = (e: any) => {
     setFocused(false);
     if (onBlurProp) {
       onBlurProp(e);
